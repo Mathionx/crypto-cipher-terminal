@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoCipher Terminal - Advanced Vigenère Cipher Translator</title>
+    <meta name="description" content="Free online Vigenère cipher tool for secure encryption and decryption. Protect your messages with military-grade classical cryptography.">
+    <style>
+        /* Reset and Base Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Smooch Sans", sans-serif;
+            font-style: normal;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Custom Digital/Cyber Aesthetic */
+        :root {
+            --neon-blue: #00ffff;
+            --neon-purple: #ff00ff;
+            --neon-green: #00ff00;
+            --dark-bg: #0d0e1a;
+            --darker-bg: #050510;
+            --card-bg: rgba(13, 14, 26, 0.9);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(rgba(13, 14, 26, 0.95), rgba(13, 14, 26, 0.95)), 
+                url('https://images.unsplash.com/photo-1517430816045-93c6b277b5a8?fit=crop&w=1400&h=900&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Main Container */
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 700px;
+            backdrop-filter: blur(10px);
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 0;
+        }
+
+        /* Digital Neon Glow Style */
+        .digital-glow-box {
+            position: relative;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .main-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--neon-blue);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--neon-blue);
+            letter-spacing: 5px;
+        }
+
+        .main-title span {
+            color: var(--neon-purple);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .promo-badge {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--neon-green);
+            font-weight: 600;
+            padding: 8px 15px;
+            border-top: 1px solid var(--neon-green);
+            border-bottom: 1px solid var(--neon-green);
+            margin: 10px 0;
+        }
+
+        /* Promotional Section */
+        .promo-section {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .promo-title {
+            font-size: 1.4rem;
+            color: var(--neon-blue);
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .promo-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        .promo-card h4 {
+            color: var(--neon-green);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .promo-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--neon-blue);
+        }
+
+        .input-digital {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+            color: #ffffff;
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-digital:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 8px var(--neon-blue);
+            outline: none;
+        }
+
+        textarea.input-digital {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Button Styles */
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #059669;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(5, 150, 105, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #c026d3;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #a21caf;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(192, 38, 211, 0.4);
+        }
+
+        .btn-full {
+            grid-column: 1 / -1;
+            background-color: #0284c7;
+            color: white;
+        }
+
+        .btn-full:hover {
+            background-color: #0369a1;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(2, 132, 199, 0.4);
+        }
+
+        .btn-icon {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Utility Classes */
+        .relative {
+            position: relative;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-4 {
+            margin-top: 20px;
+        }
+
+        .mb-4 {
+            margin-bottom: 20px;
+        }
+
+        /* Message Box */
+        .message-box {
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .message-success {
+            background-color: rgba(5, 150, 105, 0.2);
+            color: #10b981;
+            border: 1px solid #10b981;
+        }
+
+        .message-error {
+            background-color: rgba(220, 38, 38, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .message-info {
+            background-color: rgba(2, 132, 199, 0.2);
+            color: #0ea5e9;
+            border: 1px solid #0ea5e9;
+        }
+
+        /* Informational Section */
+        .info-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            color: var(--neon-blue);
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .info-text {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .info-highlight {
+            color: var(--neon-green);
+            font-style: italic;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* SEO Text */
+        .seo-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .seo-title {
+            color: var(--neon-blue);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .keyword {
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 20px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .promo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.7rem;
+            }
+            
+            .content-wrapper {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="content-wrapper digital-glow-box">
+            <!-- Header and Promotional Text -->
+            <header class="header">
+                <h1 class="main-title">CRYPTO<span>CIPHER</span> TERMINAL</h1>
+                <p class="subtitle">Advanced Vigenère Cipher Translator - Military-Grade Encryption</p>
+                <div class="promo-badge">FREE Online Tool - No Installation Required</div>
+            </header>
+
+            <!-- Promotional Section -->
+            <section class="promo-section">
+                <h3 class="promo-title">Why Choose CryptoCipher Terminal?</h3>
+                <div class="promo-grid">
+                    <div class="promo-card">
+                        <h4>🔒 Secure Encryption</h4>
+                        <p>Military-grade Vigenère cipher protection for your sensitive messages</p>
+                    </div>
+                    <div class="promo-card">
+                        <h4>⚡ Instant Results</h4>
+                        <p>Real-time encryption and decryption with zero delays</p>
+                    </div>
+                    <div class="promo-card">
+                        <h4>🌐 Browser-Based</h4>
+                        <p>No downloads, no installations - works directly in your browser</p>
+                    </div>
+                    <div class="promo-card">
+                        <h4>🎯 User-Friendly</h4>
+                        <p>Simple interface perfect for beginners and experts alike</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Translator Core -->
+            <main>
+                <!-- Input Section -->
+                <div class="form-group">
+                    <label for="inputText" class="form-label">INPUT MESSAGE</label>
+                    <div class="relative">
+                        <textarea id="inputText" rows="6" class="input-digital" placeholder="Enter your plaintext or ciphertext here...">THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG</textarea>
+                        <button id="pasteInputBtn" class="absolute" style="top: 10px; right: 10px; padding: 6px 10px; background: #4b5563; color: white; border: none; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">
+                            📋 Paste
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Key Input -->
+                <div class="form-group">
+                    <label for="key" class="form-label">SECRET KEY (Alphabetic Only)</label>
+                    <input type="text" id="key" value="SECRET" class="input-digital" style="text-transform: uppercase; letter-spacing: 2px; font-size: 1.1rem;" placeholder="Enter your encryption key...">
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <button id="encryptBtn" class="btn btn-primary">
+                        <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2h2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2h2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                        ENCRYPT
+                    </button>
+                    <button id="decryptBtn" class="btn btn-secondary">
+                        <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 016 0v1h2V7a5 5 0 00-5-5z"></path></svg>
+                        DECRYPT
+                    </button>
+                </div>
+                
+                <!-- Output Section -->
+                <div class="form-group">
+                    <label for="outputText" class="form-label">OUTPUT RESULT</label>
+                    <div class="relative">
+                        <textarea id="outputText" rows="6" readonly class="input-digital" placeholder="Your encrypted or decrypted text will appear here..." style="cursor: not-allowed; background-color: rgba(0, 0, 0, 0.3);"></textarea>
+                        <button id="copyOutputBtn" class="absolute" style="top: 10px; right: 10px; padding: 6px 10px; background: #4b5563; color: white; border: none; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">
+                            📄 Copy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Share Button -->
+                <button id="shareButton" class="btn btn-full">
+                    <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.314l4.94 2.47a3 3 0 10.835-1.668L10.8 11.77a3.01 3.01 0 000-2.54l4.132-2.066zM17 12a2 2 0 11-4 0 2 2 0 014 0zM7 6a2 2 0 11-4 0 2 2 0 014 0zm0 12a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    Share Result
+                </button>
+                
+                <!-- Message Box for Alerts -->
+                <div id="messageBox" class="message-box hidden"></div>
+            </main>
+            
+            <!-- Informational Section -->
+            <section class="info-section">
+                <h3 class="info-title">CYPHER PROTOCOL: The Vigenère Standard</h3>
+                <p class="info-text">
+                    The <strong>Vigenère Cipher</strong> provides robust, multi-alphabet encryption that has stood the test of time. 
+                    Unlike simple substitution ciphers, Vigenère uses a keyword to create multiple cipher alphabets, making it 
+                    significantly more secure against frequency analysis attacks.
+                </p>
+                <p class="info-text">
+                    Your security is our priority. The strength of this encryption relies entirely on the <strong>Secret Key</strong>. 
+                    Only those with the correct key can decrypt the ciphertext, ensuring your messages remain confidential.
+                </p>
+                <p class="info-highlight">
+                    Start encrypting critical data now with zero configuration - used by students, security professionals, and cryptography enthusiasts worldwide!
+                </p>
+            </section>
+
+            <!-- SEO Section -->
+            <section class="seo-section">
+                <h4 class="seo-title">CryptoCipher Terminal - Your Free Online Encryption Solution</h4>
+                <p>
+                    <span class="keyword">CryptoCipher Terminal</span> is the leading free online tool for <span class="keyword">Vigenère cipher encryption and decryption</span>. 
+                    Whether you're a student learning about classical cryptography, a developer testing encryption methods, 
+                    or someone who needs to securely share sensitive information, our tool provides instant, reliable results.
+                </p>
+                <p>
+                    Our <span class="keyword">online cipher translator</span> supports both encryption and decryption operations with any custom key. 
+                    The interface is optimized for <span class="keyword">easy cryptography</span> without compromising security. 
+                    Unlike other tools, we preserve case sensitivity and handle special characters gracefully.
+                </p>
+                <p>
+                    Search for <span class="keyword">"free Vigenère cipher tool"</span>, <span class="keyword">"online encryption decoder"</span>, 
+                    or <span class="keyword">"cryptography translator"</span> and find CryptoCipher Terminal at the top of your results. 
+                    Join thousands of users who trust our platform for their <span class="keyword">secure message encoding</span> needs.
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // --- Global Constants and DOM Elements ---
+        const ALPHABET_SIZE = 26;
+        const A_UPPER = 'A'.charCodeAt(0);
+        const Z_UPPER = 'Z'.charCodeAt(0);
+        const a_LOWER = 'a'.charCodeAt(0);
+        const z_LOWER = 'z'.charCodeAt(0);
+
+        // DOM Elements
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+        const keyInput = document.getElementById('key');
+        const encryptBtn = document.getElementById('encryptBtn');
+        const decryptBtn = document.getElementById('decryptBtn');
+        const pasteInputBtn = document.getElementById('pasteInputBtn');
+        const copyOutputBtn = document.getElementById('copyOutputBtn');
+        const shareButton = document.getElementById('shareButton');
+        const messageBox = document.getElementById('messageBox');
+
+        // --- Utility Functions ---
+
+        /**
+         * Shows a temporary message in the message box with fade-out effect.
+         */
+        function showMessage(message, type = 'error') {
+            messageBox.textContent = message;
+            // Reset classes
+            messageBox.className = 'message-box';
+            
+            if (type === 'success') {
+                messageBox.classList.add('message-success');
+            } else if (type === 'error') {
+                messageBox.classList.add('message-error');
+            } else {
+                messageBox.classList.add('message-info');
+            }
+
+            messageBox.classList.remove('hidden');
+            messageBox.style.opacity = '1';
+
+            // Fade out the message
+            setTimeout(() => {
+                messageBox.style.opacity = '0';
+                setTimeout(() => {
+                    messageBox.classList.add('hidden');
+                }, 300);
+            }, 3000);
+        }
+
+        /**
+         * Copies the content of a textarea element to the clipboard.
+         */
+        function copyContent(element, successMessage) {
+            if (element.value.trim().length === 0) {
+                showMessage("Box is empty. Nothing to copy.", 'error');
+                return;
+            }
+
+            // Create a temporary input element for reliable copying
+            const tempInput = document.createElement("textarea");
+            tempInput.value = element.value;
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+            document.body.appendChild(tempInput);
+            
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); 
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showMessage(successMessage, 'success');
+                } else {
+                    showMessage("Copy failed. Please copy manually.", 'error');
+                }
+            } catch (err) {
+                console.error('Copy command failed:', err);
+                showMessage("Copy failed due to an unexpected error.", 'error');
+            } finally {
+                 document.body.removeChild(tempInput);
+            }
+        }
+
+        // --- Vigenère Cipher Logic ---
+
+        function vigenereCipher(text, keyword, decrypt = false) {
+            // Trim and normalize the keyword immediately
+            const normalizedKeyword = (keyword || '').toUpperCase().replace(/[^A-Z]/g, '');
+
+            if (normalizedKeyword.length === 0) {
+                 showMessage("Error: The keyword must contain at least one letter.");
+                return '';
+            }
+
+            let result = '';
+            let keyIndex = 0;
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const charCode = char.charCodeAt(0);
+                
+                let base = 0; 
+                
+                if (charCode >= A_UPPER && charCode <= Z_UPPER) {
+                    base = A_UPPER;
+                } else if (charCode >= a_LOWER && charCode <= z_LOWER) {
+                    base = a_LOWER;
+                }
+                
+                if (base !== 0) {
+                    const keyChar = normalizedKeyword[keyIndex % normalizedKeyword.length];
+                    const keyShift = keyChar.charCodeAt(0) - A_UPPER; 
+
+                    let p_i = charCode - base;
+                    let c_i;
+
+                    if (!decrypt) {
+                        // Encryption: C = (P + K) mod 26
+                        c_i = (p_i + keyShift) % ALPHABET_SIZE;
+                    } else {
+                        // Decryption: P = (C - K) mod 26
+                        c_i = (p_i - keyShift + ALPHABET_SIZE) % ALPHABET_SIZE;
+                    }
+
+                    result += String.fromCharCode(c_i + base);
+                    keyIndex++;
+                }
+                else {
+                    result += char; // Preserve non-alphabetic character
+                }
+            }
+            return result;
+        }
+
+        /**
+         * Main handler for Encrypt/Decrypt buttons.
+         */
+        function handleCipherAction(decrypt) {
+            const text = inputText.value.trim();
+            const keyword = keyInput.value.trim();
+
+            if (!text) {
+                showMessage(`Please enter text to ${decrypt ? 'decrypt' : 'encrypt'}.`);
+                outputText.value = '';
+                return;
+            }
+
+            const result = vigenereCipher(text, keyword, decrypt);
+            if (result) {
+                outputText.value = result;
+                showMessage(`${decrypt ? 'Decryption' : 'Encryption'} successful!`, 'success');
+            }
+        }
+
+        /**
+         * Handles pasting, with a fallback message for touch devices.
+         */
+        async function handlePaste() {
+            inputText.focus();
+            
+            try {
+                // Modern approach with permissions check
+                if (navigator.clipboard && navigator.clipboard.readText) {
+                    const text = await navigator.clipboard.readText();
+                    inputText.value = text;
+                    showMessage("Pasted from clipboard!", 'success');
+                } else {
+                    // Fallback instructions
+                    showMessage("Please use Ctrl+V to paste, or long-press and select Paste", 'info');
+                }
+            } catch (err) {
+                console.warn('Clipboard paste failed:', err);
+                showMessage("Please paste manually (Ctrl+V or long-press)", 'info');
+            }
+        }
+
+        /**
+         * Shares the output result via Web Share API or copies a shareable message.
+         */
+        function shareResult() {
+            const outputTextValue = outputText.value;
+            const key = keyInput.value;
+            
+            if (!outputTextValue) {
+                showMessage("Please encrypt or decrypt a message before sharing.", 'error');
+                return;
+            }
+
+            const shareMessage = `🔐 CryptoCipher Terminal Result:\n\n"${outputTextValue}"\n\nKey: ${key}\n\nTry it yourself: ${window.location.href}\n\n#CryptoCipher #EncryptionTool`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'CryptoCipher Terminal Result',
+                    text: shareMessage,
+                    url: window.location.href
+                })
+                .then(() => showMessage('Result shared successfully!', 'success'))
+                .catch((error) => {
+                    if (error.name !== 'AbortError') {
+                        copyContent(outputText, 'Result copied to clipboard!');
+                    }
+                });
+            } else {
+                copyContent(outputText, 'Result copied to clipboard!');
+            }
+        }
+
+        // --- Event Listeners Setup ---
+
+        // Cipher Tab Listeners
+        encryptBtn.addEventListener('click', () => handleCipherAction(false));
+        decryptBtn.addEventListener('click', () => handleCipherAction(true));
+
+        pasteInputBtn.addEventListener('click', handlePaste);
+        copyOutputBtn.addEventListener('click', () => copyContent(outputText, 'Result copied to clipboard!'));
+        shareButton.addEventListener('click', shareResult);
+
+        // Key input validation
+        keyInput.addEventListener('input', function() {
+            this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '');
+        });
+
+        // Initial setup
+        window.onload = function() {
+            // Ensure the cipher key is clean on load
+            keyInput.value = keyInput.value.toUpperCase().replace(/[^A-Z]/g, '');
+        };
+    </script>
+</body>
+</html>
