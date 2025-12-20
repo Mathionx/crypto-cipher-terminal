@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Logic Exam Preparation(AMU Logic exams)</title>
+    <link rel="Icon" href="..//images/logo.png" type="Image">
+    <!-- Bootstrap 5 for responsive design -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background-color: white;
+            transition: all 0.2s;
+        }
+        
+        .option-btn:hover {
+            border-color: var(--secondary-color);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .option-btn.selected {
+            border-color: var(--secondary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .option-btn.correct {
+            border-color: var(--success-color);
+            background-color: rgba(39, 174, 96, 0.15);
+        }
+        
+        .option-btn.incorrect {
+            border-color: var(--danger-color);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .explanation {
+            padding: 1rem;
+            background-color: rgba(243, 156, 18, 0.1);
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--warning-color);
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+        
+        .matching-column {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .matching-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid var(--warning-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .matching-item:hover {
+            background-color: #e9ecef;
+        }
+        
+        .matching-item.selected {
+            background-color: rgba(155, 89, 182, 0.15);
+            border-left-color: #9b59b6;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .stats-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .stat-label {
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        
+        .reveal-btn {
+            background-color: var(--warning-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .reveal-btn:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        .tf-btn {
+            min-width: 100px;
+            padding: 10px 20px;
+            border: 2px solid #dee2e6;
+            background-color: white;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .tf-btn.selected-true {
+            border-color: var(--success-color);
+            background-color: rgba(39, 174, 96, 0.15);
+            color: var(--success-color);
+        }
+        
+        .tf-btn.selected-false {
+            border-color: var(--danger-color);
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .short-answer-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--success-color);
+        }
+        
+        @media (max-width: 768px) {
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1 class="text-center"><i class="fas fa-brain"></i> Complete Logic Exam Preparation</h1>
+            <p class="text-center lead">Interactive study guide with all 29 True/False, 36 Multiple Choice, 9 Matching, and 7 Short Answer questions
+            <br />
+            <strong>2013, 2015, 2016 and 2017 AMU logic mid exams</strong></p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Statistics Card -->
+        <div class="stats-card">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-number" id="tf-correct">0</div>
+                    <div class="stat-label">T/F Correct</div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-number" id="mc-correct">0</div>
+                    <div class="stat-label">MC Correct</div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-number" id="total-answered">0</div>
+                    <div class="stat-label">Questions Answered</div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-number" id="percentage">0%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs mb-4" id="sectionTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tf-tab" data-bs-toggle="tab" data-bs-target="#tf-section" type="button" role="tab">True/False (29)</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="mc-tab" data-bs-toggle="tab" data-bs-target="#mc-section" type="button" role="tab">Multiple Choice (36)</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="matching-tab" data-bs-toggle="tab" data-bs-target="#matching-section" type="button" role="tab">Matching (9)</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="short-tab" data-bs-toggle="tab" data-bs-target="#short-section" type="button" role="tab">Short Answer (7)</button>
+            </li>
+        </ul>
+        
+        <!-- Tab Content -->
+        <div class="tab-content" id="sectionContent">
+            <!-- True/False Section -->
+            <div class="tab-pane fade show active" id="tf-section" role="tabpanel">
+                <h3 class="section-title"><i class="fas fa-check-circle"></i> Part I: True/False Statements (29 Questions)</h3>
+                
+                <!-- TF Questions will be dynamically generated -->
+                <div id="tf-questions-container"></div>
+            </div>
+            
+            <!-- Multiple Choice Section -->
+            <div class="tab-pane fade" id="mc-section" role="tabpanel">
+                <h3 class="section-title"><i class="fas fa-list-ol"></i> Part II: Multiple Choice Questions (36 Questions)</h3>
+                
+                <!-- MC Questions will be dynamically generated -->
+                <div id="mc-questions-container"></div>
+            </div>
+            
+            <!-- Matching Section -->
+            <div class="tab-pane fade" id="matching-section" role="tabpanel">
+                <h3 class="section-title"><i class="fas fa-link"></i> Part III: Matching (9 Items)</h3>
+                
+                <div class="matching-container">
+                    <div class="matching-column">
+                        <h5>Column A</h5>
+                        <div class="matching-item" data-id="1">1. Valid argument</div>
+                        <div class="matching-item" data-id="2">2. Invalid Argument</div>
+                        <div class="matching-item" data-id="3">3. Sound argument</div>
+                        <div class="matching-item" data-id="4">4. Un-cogent argument</div>
+                        <div class="matching-item" data-id="5">5. Unsound argument</div>
+                        <div class="matching-item" data-id="6">6. Factual claim</div>
+                        <div class="matching-item" data-id="7">7. Strong argument</div>
+                        <div class="matching-item" data-id="8">8. Cogent argument</div>
+                        <div class="matching-item" data-id="9">9. Inferential claim</div>
+                    </div>
+                    
+                    <div class="matching-column">
+                        <h5>Column B</h5>
+                        <div class="matching-item" data-id="A">A. The conclusion follows probably from the premises</div>
+                        <div class="matching-item" data-id="B">B. Either valid with one or more false premises, or invalid, or both</div>
+                        <div class="matching-item" data-id="C">C. Valid argument with all true premises</div>
+                        <div class="matching-item" data-id="D">D. Actually true premises and an actually false conclusion</div>
+                        <div class="matching-item" data-id="E">E. Questions about truth and falsity of premises</div>
+                        <div class="matching-item" data-id="F">F. The conclusion necessarily followed from the premises</div>
+                        <div class="matching-item" data-id="G">G. Expresses a reasoning process</div>
+                        <div class="matching-item" data-id="H">H. Expresses a reasoning process</div>
+                        <div class="matching-item" data-id="I">I. The inductive analogue of a sound deductive argument</div>
+                        <div class="matching-item" data-id="J">J. Either strong with one or more false premises, or weak, or both.</div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button class="reveal-btn" onclick="revealMatchingAnswers()">
+                        <i class="fas fa-eye"></i> Reveal Correct Answers
+                    </button>
+                </div>
+                
+                <div class="mt-4" id="matching-answers" style="display: none;">
+                    <h5 class="text-center mb-3">Correct Matches</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Column A</th>
+                                    <th>Column B</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1. Valid argument</td><td><strong>F</strong>. The conclusion necessarily followed from the premises</td></tr>
+                                <tr><td>2. Invalid Argument</td><td><strong>D</strong>. Actually true premises and an actually false conclusion</td></tr>
+                                <tr><td>3. Sound argument</td><td><strong>C</strong>. Valid argument with all true premises</td></tr>
+                                <tr><td>4. Un-cogent argument</td><td><strong>J</strong>. Either strong with one or more false premises, or weak, or both.</td></tr>
+                                <tr><td>5. Unsound argument</td><td><strong>B</strong>. Either valid with one or more false premises, or invalid, or both</td></tr>
+                                <tr><td>6. Factual claim</td><td><strong>E</strong>. Questions about truth and falsity of premises</td></tr>
+                                <tr><td>7. Strong argument</td><td><strong>A</strong>. The conclusion follows probably from the premises</td></tr>
+                                <tr><td>8. Cogent argument</td><td><strong>I</strong>. The inductive analogue of a sound deductive argument</td></tr>
+                                <tr><td>9. Inferential claim</td><td><strong>H</strong>. Expresses a reasoning process</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Short Answer Section -->
+            <div class="tab-pane fade" id="short-section" role="tabpanel">
+                <h3 class="section-title"><i class="fas fa-pen-alt"></i> Part IV: Short Answer & Argument Analysis (7 Questions)</h3>
+                
+                <!-- Short Answer Questions will be dynamically generated -->
+                <div id="short-questions-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ==================== DATA ====================
+        
+        // True/False Questions (all 29)
+        const tfQuestions = [
+            {
+                id: 1,
+                text: "An argument must have more than one premise.",
+                answer: false,
+                explanation: "False. An argument can have a single premise. For example: 'All humans are mortal. Therefore, Socrates is mortal.' The number of premises is not what defines an argument; rather, it's the presence of premises intended to support a conclusion."
+            },
+            {
+                id: 2,
+                text: "A deductive argument is always invalid if it has true premises and a false conclusion.",
+                answer: true,
+                explanation: "True. By definition, a deductive argument is valid if and only if it is impossible for the premises to be true and the conclusion false. Therefore, if a deductive argument has true premises and a false conclusion, it must be invalid."
+            },
+            {
+                id: 3,
+                text: "The existence of indicator words in a passage guarantees the existence of an argument.",
+                answer: false,
+                explanation: "False. Indicator words (like 'therefore,' 'because,' 'since') suggest that an argument might be present, but they don't guarantee it. A passage might use these words without actually presenting an argument (e.g., in explanations or reports)."
+            },
+            {
+                id: 4,
+                text: "In logic, the statements which are claimed to provide logical reasons are called premises.",
+                answer: true,
+                explanation: "True. Premises are the statements in an argument that are offered as evidence or reasons to support the conclusion. They are the foundation upon which the conclusion is based."
+            },
+            {
+                id: 5,
+                text: "Non-statements can be used to construct an argument.",
+                answer: false,
+                explanation: "False. Arguments are composed of statements (propositions) that can be true or false. Non-statements like questions, commands, or exclamations cannot serve as premises or conclusions in logical arguments."
+            },
+            {
+                id: 6,
+                text: "Depending on the truth value of its statements, a valid argument can be sound or unsound.",
+                answer: true,
+                explanation: "True. A deductive argument is sound if it is valid AND all its premises are true. If a valid argument has one or more false premises, it is unsound. So the truth value of premises determines whether a valid argument is sound or unsound."
+            },
+            {
+                id: 7,
+                text: "Cogent inductive arguments can be either strong or weak based on the strength of the inferential linkage between premises and the conclusion.",
+                answer: false,
+                explanation: "False. By definition, a cogent argument must be strong (have a strong inferential link) AND have all true premises. A weak inductive argument cannot be cogent regardless of the truth of its premises."
+            },
+            {
+                id: 8,
+                text: "Factual claim is necessarily important to distinguish deductive arguments from inductive arguments.",
+                answer: false,
+                explanation: "False. The distinction between deductive and inductive arguments is based on the type of inferential claim (necessity vs. probability), not on factual claims. Factual claims relate to the truth of statements, not the type of reasoning."
+            },
+            {
+                id: 9,
+                text: "The strength and weakness of inductive arguments may depend on certain forms of randomly selected sample size.",
+                answer: true,
+                explanation: "True. In inductive generalizations, the strength of the argument often depends on sample size and randomness. A larger, randomly selected sample generally supports a stronger inference than a small, non-random sample."
+            },
+            {
+                id: 10,
+                text: "The nature of the link between premises and conclusion may allow one to determine whether an argument is inductive or deductive.",
+                answer: true,
+                explanation: "True. Deductive arguments claim that the conclusion follows necessarily from the premises, while inductive arguments claim that the conclusion follows probably from the premises. Analyzing this inferential claim helps classify the argument."
+            },
+            {
+                id: 11,
+                text: "An argument whose conclusion rests on the definition of a word used in the premises is an inductive argument.",
+                answer: false,
+                explanation: "False. Arguments based on definitions are typically deductive because if the definition is accepted and correctly applied, the conclusion follows necessarily from the premises."
+            },
+            {
+                id: 12,
+                text: "Applied ethics deals with the practical application of ethical principles to specific moral issues or situations.",
+                answer: true,
+                explanation: "True. Applied ethics is a branch of ethics that applies ethical theories and principles to real-world moral problems, such as medical ethics, business ethics, or environmental ethics."
+            },
+            {
+                id: 13,
+                text: "Water is a sufficient condition for all living things which are found throughout the world at large.",
+                answer: false,
+                explanation: "False. Water is a necessary condition for life as we know it, but not a sufficient condition. Many other conditions (appropriate temperature, nutrients, etc.) are also needed for living things to exist."
+            },
+            {
+                id: 14,
+                text: "All arguments that proceed from Specific to General circumstances are necessarily inductive arguments.",
+                answer: false,
+                explanation: "False. While many inductive arguments proceed from specific instances to general conclusions, this pattern alone doesn't guarantee an argument is inductive. Some deductive arguments can also have this form."
+            },
+            {
+                id: 15,
+                text: "Arguments should be presented using emotive terminologies.",
+                answer: false,
+                explanation: "False. Good arguments should be based on logic and evidence, not emotional language. Emotive terminology can be misleading and is often associated with fallacies rather than sound reasoning."
+            },
+            {
+                id: 16,
+                text: "Every argument that is valid and has a true conclusion is sound.",
+                answer: false,
+                explanation: "False. For a deductive argument to be sound, it must be valid AND have all true premises. A valid argument with a true conclusion could still have false premises and thus be unsound."
+            },
+            {
+                id: 17,
+                text: "An inductively valid argument with all true premises is sound.",
+                answer: false,
+                explanation: "False. The term 'sound' applies specifically to deductive arguments. For inductive arguments, we use the term 'cogent' to describe a strong argument with all true premises."
+            },
+            {
+                id: 18,
+                text: "Validity is the correctness of the argument's reasoning or the truth of inductive arguments' inferential claim.",
+                answer: false,
+                explanation: "False. Validity applies specifically to deductive arguments. For inductive arguments, we evaluate strength (not validity). The inferential claim of an inductive argument is about probability, not necessity."
+            },
+            {
+                id: 19,
+                text: "Unlike deductive argument, inductive argument necessarily proceeds from particular to general.",
+                answer: false,
+                explanation: "False. While many inductive arguments proceed from particular to general, inductive arguments can also proceed from particular to particular (as in analogical reasoning) or from general to particular (as in statistical syllogisms)."
+            },
+            {
+                id: 20,
+                text: "All sentences are statements and can be either the premise or conclusion of an argument.",
+                answer: false,
+                explanation: "False. Not all sentences are statements (declarative sentences that can be true or false). Questions, commands, and exclamations are sentences but cannot be premises or conclusions in arguments."
+            },
+            {
+                id: 21,
+                text: "A sound argument is a strong argument that has all true premises and by default a true conclusion.",
+                answer: false,
+                explanation: "False. Soundness applies to deductive arguments (which are valid or invalid, not strong or weak). A sound deductive argument is valid and has all true premises, which guarantees a true conclusion."
+            },
+            {
+                id: 22,
+                text: "All invalid deductive arguments are unsound, and all weak inductive arguments are uncogent.",
+                answer: true,
+                explanation: "True. By definition: (1) A deductive argument is sound only if it is valid AND has all true premises, so invalid deductive arguments cannot be sound. (2) An inductive argument is cogent only if it is strong AND has all true premises, so weak inductive arguments cannot be cogent."
+            },
+            {
+                id: 23,
+                text: "Any argument in which the conclusion likely follows from its premises is an inductive argument.",
+                answer: true,
+                explanation: "True. Inductive arguments claim that the conclusion follows from the premises with probability, not necessity. If an argument only claims that the conclusion 'likely' follows, it's inductive."
+            },
+            {
+                id: 24,
+                text: "If all evidences placed in the premises really do support the conclusion, then the argument is a good argument.",
+                answer: false,
+                explanation: "False. For an argument to be good, it needs more than just supportive evidence. A deductive argument must be valid (or inductively strong) AND have true premises. An argument with false premises, even if they seem to support the conclusion, is not a good argument."
+            },
+            {
+                id: 25,
+                text: "In deductive argument, the content of the conclusion lies entirely within the domain or the content of the premises.",
+                answer: true,
+                explanation: "True. In a valid deductive argument, the conclusion doesn't contain any information that isn't already contained (at least implicitly) in the premises. This is sometimes called the 'containment principle' of deductive reasoning."
+            },
+            {
+                id: 26,
+                text: "Regardless of its structure/form, a deductive argument having a true premise and true conclusion is considered a sound argument.",
+                answer: false,
+                explanation: "False. For a deductive argument to be sound, it must be valid AND have all true premises. A deductive argument with true premises and true conclusion could still be invalid (and thus unsound) if the conclusion doesn't necessarily follow from the premises."
+            },
+            {
+                id: 27,
+                text: "If an argument has true premises and a true conclusion, it is a perfectly good argument.",
+                answer: false,
+                explanation: "False. An argument can have true premises and a true conclusion but still be logically flawed. For example: 'All cats are mammals. All dogs are mammals. Therefore, all cats are dogs.' The premises and conclusion are true, but the reasoning is invalid."
+            },
+            {
+                id: 28,
+                text: "A passage that contains two or more statements can be a guarantee for the existence of an argument.",
+                answer: false,
+                explanation: "False. A passage containing multiple statements might simply be reporting information or describing something without presenting an argument. An argument requires that some statements are intended to support another statement."
+            },
+            {
+                id: 29,
+                text: "An argument whose conclusion rests on the idea of a witness is best interpreted as deductive argument.",
+                answer: false,
+                explanation: "False. Arguments based on witness testimony are typically inductive because the conclusion doesn't follow with certainty. Witnesses can be mistaken, lying, or have faulty memories, so such arguments establish probability, not certainty."
+            }
+        ];
+        
+        // Multiple Choice Questions (all 36)
+        const mcQuestions = [
+            {
+                id: 1,
+                text: "Which one of the following alternatives makes an argument cogent?",
+                options: [
+                    "A. If the argument is inductive, weak and has true premises.",
+                    "B. If the argument is inductive, strong and has false premise.",
+                    "C. If the argument is inductive, weak and has false premise.",
+                    "D. If the argument is inductive, strong and has true premises.",
+                    "E. 'A' & 'D'"
+                ],
+                answer: "D",
+                explanation: "Answer: D. A cogent inductive argument must be strong (have a strong inferential link) AND have all true premises. Option A is incorrect because a weak argument cannot be cogent. Option B is incorrect because an argument with false premises cannot be cogent. Option C has both problems. Option E is incorrect because it includes A which is wrong."
+            },
+            {
+                id: 2,
+                text: "The argument 'For the last ten years people have been listening to Teddy Afro's music and found it interesting. Probably, people will listen to it a year from now.' is categorized under:",
+                options: [
+                    "A. Deductive, argument of definition",
+                    "B. Inductive, argument from authority",
+                    "C. Inductive, argument of analogy",
+                    "D. Inductive, based on prediction",
+                    "E. None of the above"
+                ],
+                answer: "D",
+                explanation: "Answer: D. This argument uses past patterns to predict a future outcome, which is characteristic of inductive prediction arguments. The word 'probably' indicates it's inductive rather than deductive, and it's making a prediction about future behavior based on past evidence."
+            },
+            {
+                id: 3,
+                text: "An argument '95% of all examined fish from the Abaya Lake contained dangerous levels of mercury. This fish came from the Abaya Lake. Therefore, this fish probably contains dangerous levels of mercury.' is:",
+                options: [
+                    "A. Valid Deductive argument",
+                    "B. Weak inductive argument",
+                    "C. Invalid deductive argument",
+                    "D. Strong Inductive argument",
+                    "E. None of the above"
+                ],
+                answer: "D",
+                explanation: "Answer: D. This is an inductive argument based on a statistical generalization. With 95% of examined fish containing mercury, the inference that this particular fish 'probably' contains mercury is strong (though not certain). The word 'probably' indicates it's inductive rather than deductive."
+            },
+            {
+                id: 4,
+                text: "A Deductively valid argument may have all of the following combinations of truth values except?",
+                options: [
+                    "A. True premises and True conclusion.",
+                    "B. False premises and True conclusion.",
+                    "C. False premises and false conclusion.",
+                    "D. True premises and false conclusion.",
+                    "E. All of the above"
+                ],
+                answer: "D",
+                explanation: "Answer: D. A valid deductive argument CANNOT have true premises and a false conclusion. If the premises are true, the conclusion MUST be true in a valid argument. All other combinations (A, B, C) are possible for valid arguments."
+            },
+            {
+                id: 5,
+                text: "The expression 'I think Buna fc is the best football club in Ethiopian premier league' is:",
+                options: [
+                    "A. Passage of report",
+                    "B. Statement of belief",
+                    "C. Passage of Warning",
+                    "D. Passage of advice",
+                    "E. None of the above"
+                ],
+                answer: "B",
+                explanation: "Answer: B. This is a statement of belief or opinion. It expresses what the speaker thinks or believes, not necessarily a factual claim that can be verified as true or false independently of the speaker's perspective."
+            },
+            {
+                id: 6,
+                text: "Which one of the following is a statement?",
+                options: [
+                    "A. What is the meaning of logic?",
+                    "B. Metaphysics studies nature of reality",
+                    "C. Can you open the window, please?",
+                    "D. Wow, what a weekend",
+                    "E. None of the above"
+                ],
+                answer: "B",
+                explanation: "Answer: B. A statement is a declarative sentence that can be true or false. Option B makes a claim that can be evaluated as true or false. Options A and C are questions, and D is an exclamation - none of these are statements in the logical sense."
+            },
+            {
+                id: 7,
+                text: "Teddy and his brother Kifle are alike in many ways. They both like fashion, music and sport. Teddy likes a movie. It must be the case that Kifle also likes a movie. This argument can be:",
+                options: [
+                    "A. Argument of Prediction",
+                    "B. Argument of Analogy",
+                    "C. Argument of Causal inferences",
+                    "D. Argument of Sign",
+                    "E. Inductive generalization"
+                ],
+                answer: "B",
+                explanation: "Answer: B. This is an argument from analogy. It concludes that Kifle has a property (liking a movie) based on the similarity between Teddy and Kifle in other respects. Arguments from analogy reason that if two things are similar in some ways, they're likely similar in other ways too."
+            },
+            {
+                id: 8,
+                text: "If 'No fruits are vegetables and All apples are fruits', What can be concluded about apples?",
+                options: [
+                    "A. Some fruits are not vegetable",
+                    "B. No conclusion can be drawn",
+                    "C. Apples are vegetables",
+                    "D. Apples are not vegetables",
+                    "E. None of the above"
+                ],
+                answer: "D",
+                explanation: "Answer: D. From 'No fruits are vegetables' and 'All apples are fruits', we can validly conclude that apples are not vegetables. This is a categorical syllogism in the form: No F are V, All A are F, therefore No A are V (which implies apples are not vegetables)."
+            },
+            {
+                id: 9,
+                text: "Which one of the following is the correct statement about deductive arguments?",
+                options: [
+                    "A. Valid deductive arguments are necessarily sound arguments",
+                    "B. Sound deductive arguments are inevitably valid arguments",
+                    "C. Invalid deductive arguments can be either sound or unsound",
+                    "D. Unsound deductive arguments are always invalid arguments",
+                    "E. All of the above"
+                ],
+                answer: "B",
+                explanation: "Answer: B. Sound deductive arguments are indeed inevitably valid because by definition, a sound argument must be valid AND have all true premises. Option A is wrong because valid arguments can have false premises (making them unsound). Option C is wrong because invalid arguments cannot be sound. Option D is wrong because unsound arguments can be valid but have false premises."
+            },
+            {
+                id: 10,
+                text: "Which of the following is true about this argument? 'All human beings are reptiles. John is a human being. Therefore, John is a reptile.'",
+                options: [
+                    "A. Cogent strong inductive argument",
+                    "B. Sound valid deductive argument",
+                    "C. Unsound valid deductive argument",
+                    "D. Unsound, invalid deductive argument",
+                    "E. Uncogent weak inductive argument"
+                ],
+                answer: "C",
+                explanation: "Answer: C. This is a valid deductive argument (it has the form of a categorical syllogism). However, the first premise ('All human beings are reptiles') is false, so the argument is unsound. Valid + false premises = unsound."
+            },
+            {
+                id: 11,
+                text: "'Event X has attributes of A, B, C, and D, and event Y has attributes of A, B, and C; therefore, event Y has also the attribute of D.' can be best interpreted as:",
+                options: [
+                    "A. Argument of analogy",
+                    "B. Non-argumentative passage",
+                    "C. Argument of prediction",
+                    "D. Argument of geometry",
+                    "E. 'A' & 'D'"
+                ],
+                answer: "A",
+                explanation: "Answer: A. This is an argument from analogy. It reasons that because X and Y share attributes A, B, and C, and X has attribute D, Y probably also has attribute D. This is a classic form of analogical reasoning."
+            },
+            {
+                id: 12,
+                text: "In a valid deductive argument; if the Premises are assumed true, logically what can we say about its conclusion?",
+                options: [
+                    "A. It Might be true",
+                    "B. It Is probably true",
+                    "C. It Must be true",
+                    "D. It's difficult to determine",
+                    "E. 'A' & 'C'"
+                ],
+                answer: "C",
+                explanation: "Answer: C. In a valid deductive argument, if the premises are true, the conclusion MUST be true. This is the definition of validity for deductive arguments: it's impossible for the premises to be true and the conclusion false."
+            },
+            {
+                id: 13,
+                text: "Which one of the following is correct statement about arguments in general?",
+                options: [
+                    "A. The soundness of a deductive argument has no direct linkage with the factual claim of the statements.",
+                    "B. The cogency of an inductive argument has a direct relation with the actual truth value of the statements.",
+                    "C. The validity of a deductive argument has a direct relation with the actual truth value of the statements.",
+                    "D. The strength of a deductive argument has no direct linkage with the inferential claim of the statements.",
+                    "E. All of the above"
+                ],
+                answer: "B",
+                explanation: "Answer: B. Cogency of inductive arguments requires both strength AND true premises, so it has a direct relation with truth values. Option A is wrong because soundness requires true premises. Option C is wrong because validity is about logical form, not truth values. Option D is wrong because 'strength' applies to inductive, not deductive arguments."
+            },
+            {
+                id: 14,
+                text: "The passage 'World-renowned physicist Stephen Hawking says that the condition of the universe at the instant of the Big Bang was more highly ordered than it is today. In view of Hawking's stature in the scientific community, we should conclude that this description of the universe is correct' can be best interpreted as:",
+                options: [
+                    "A. Argument of cause and effect",
+                    "B. Argument of prediction",
+                    "C. Argument of authority",
+                    "D. Argument of generalization",
+                    "E. Non-argumentative passage"
+                ],
+                answer: "C",
+                explanation: "Answer: C. This is an argument from authority. It concludes that a claim is true because an authority (Stephen Hawking) says it's true. The phrase 'In view of Hawking's stature... we should conclude' explicitly indicates an appeal to authority."
+            },
+            {
+                id: 15,
+                text: "Which one of the following is incorrect statement about arguments?",
+                options: [
+                    "A. Truth value is the attribute of an argument whereas validity is the attribute of statements.",
+                    "B. Arguments proceeding from general to specific instances are necessarily deductive arguments.",
+                    "C. Inductive arguments with actually true premise and true conclusion are necessarily strong arguments.",
+                    "D. An argument must have two premises and one conclusion.",
+                    "E. All of the above"
+                ],
+                answer: "E",
+                explanation: "Answer: E. All of these statements are incorrect. A: Truth value applies to statements, validity to arguments. B: Some inductive arguments proceed from general to specific (statistical syllogisms). C: True premises and conclusion don't guarantee strength (the inference might still be weak). D: Arguments can have any number of premises (including one)."
+            },
+            {
+                id: 16,
+                text: "Next week I have to visit either the islands of Lake Tana or Sof-Omar Cave in Bale. But I abandoned visiting the island of Lake Tana. So next week I will be in Bale to visit the Sof-Omar cave. This argument can be best interpreted as:",
+                options: [
+                    "A. Categorical syllogism",
+                    "B. Hypothetical syllogism",
+                    "C. Disjunctive syllogism",
+                    "D. Argument of prediction",
+                    "E. None of the above"
+                ],
+                answer: "C",
+                explanation: "Answer: C. This is a disjunctive syllogism: P or Q; not P; therefore Q. The first premise presents a disjunction (either-or), the second denies one disjunct, and the conclusion affirms the other disjunct."
+            },
+            {
+                id: 17,
+                text: "Which of the following cannot be considered as an argument in logical terms?",
+                options: [
+                    "A. Conversation about the weather condition with no inference",
+                    "B. A passage claiming that because it rained yesterday, it will rain today",
+                    "C. A debate where persons provide evidence to support their viewpoint",
+                    "D. A set of premises leading to a specific conclusion",
+                    "E. None of the above"
+                ],
+                answer: "A",
+                explanation: "Answer: A. A conversation about weather with no inference lacks the essential element of an argument: reasons offered to support a conclusion. Options B, C, and D all involve arguments (B: inference from past to future; C: evidence supporting viewpoints; D: explicit premise-conclusion structure)."
+            },
+            {
+                id: 18,
+                text: "Which one of the following statements is appropriately sound?",
+                options: [
+                    "A. Being divisible by two without remainder is a necessary condition for being the number even.",
+                    "B. Except for syllogistic arguments, all arguments have exactly two premises and one conclusion.",
+                    "C. Passages that contain special indicator words are necessarily arguments.",
+                    "D. Invalid arguments may or may not be unsound.",
+                    "E. None of the above"
+                ],
+                answer: "A",
+                explanation: "Answer: A. This is correct: divisibility by 2 is indeed a necessary condition for a number to be even. B is false (arguments can have any number of premises). C is false (indicator words don't guarantee arguments). D is false (invalid arguments are always unsound)."
+            },
+            {
+                id: 19,
+                text: "'All mammals are animals. All cows are mammals. Therefore, all cows are animals'. This argument is:",
+                options: [
+                    "A. Deductive, valid, unsound",
+                    "B. Inductive, weak, uncogent",
+                    "C. Deductive, invalid, unsound",
+                    "D. Inductive, strong, cogent",
+                    "E. Deductive, valid, sound"
+                ],
+                answer: "E",
+                explanation: "Answer: E. This is a classic categorical syllogism that is deductive (conclusion follows necessarily), valid (proper logical form), and sound (all premises are true, and it's valid)."
+            },
+            {
+                id: 20,
+                text: "Which one of the following is a sound statement about arguments in general?",
+                options: [
+                    "A. The cogency of an inductive argument has no direct linkage with the factual claim of the statements.",
+                    "B. The soundness of a deductive argument is directly related to the actual truth value of the statements.",
+                    "C. The strength of inductive argument has a direct relation with the actual truth value of the statements.",
+                    "D. The validity of a deductive argument has direct linkage with the factual claim of the statements.",
+                    "E. All of the above"
+                ],
+                answer: "B",
+                explanation: "Answer: B. Soundness requires true premises, so it's directly related to truth values. A is false (cogency requires true premises). C is false (strength is about probability, not truth). D is false (validity is about form, not truth)."
+            },
+            {
+                id: 21,
+                text: "Which one of the following is true about this? 'Mr. X is a polytheist. Therefore, he believes in more than one God'.",
+                options: [
+                    "A. Argument of prediction",
+                    "B. Argument of syllogism",
+                    "C. Argument of definition",
+                    "D. It is not an argument",
+                    "E. None of the above"
+                ],
+                answer: "C",
+                explanation: "Answer: C. This is an argument from definition. The conclusion follows from the definition of 'polytheist' (someone who believes in multiple gods). Given the premise that Mr. X is a polytheist, the conclusion necessarily follows from the definition."
+            },
+            {
+                id: 22,
+                text: "Which one of the following is false about deductive argument?",
+                options: [
+                    "A. It can proceed from general to specific and vice versa",
+                    "B. Improbable for the conclusion to be false if all premises are assumed true",
+                    "C. It involves necessary reasoning",
+                    "D. The relation between the premise and conclusion is a matter of certainty",
+                    "E. None of the above"
+                ],
+                answer: "B",
+                explanation: "Answer: B. This statement is false about deductive arguments. In a valid deductive argument, it's not just 'improbable' for the conclusion to be false if premises are true - it's IMPOSSIBLE. Options A, C, and D are true characteristics of deductive arguments."
+            },
+            {
+                id: 23,
+                text: "'The street is slippery. Yesterday I saw two car accidents on that slippery street. Today, the street is also wet and looks dangerously slippery. So, there is a high probability that a car accident will occur soon afterward.' This argument is:",
+                options: [
+                    "A. Deductive based on definition",
+                    "B. Inductive prediction",
+                    "C. Inductive based on analogy",
+                    "D. Deductive based on statistics",
+                    "E. Inductive based on causation"
+                ],
+                answer: "B",
+                explanation: "Answer: B. This is an inductive prediction argument. It uses past observations (accidents on slippery streets) to predict a future event (another accident). The phrase 'high probability' indicates it's inductive, not deductive."
+            },
+            {
+                id: 24,
+                text: "All are benefits of studying logic, except?",
+                options: [
+                    "A. Improving confidence in evaluating arguments made by others",
+                    "B. Learning how to construct strong and fallacy-free arguments",
+                    "C. Developing the ability to persuade others through emotional appeal",
+                    "D. Gaining insight into common errors in reasoning and language misuse",
+                    "E. None of the above"
+                ],
+                answer: "C",
+                explanation: "Answer: C. While logic might incidentally help with persuasion, 'persuading through emotional appeal' is not a primary benefit of studying logic. In fact, logic emphasizes rational persuasion rather than emotional manipulation. Options A, B, and D are genuine benefits of studying logic."
+            },
+            {
+                id: 25,
+                text: "Which of the following can be accurately classified as a deductive argument?",
+                options: [
+                    "A. Scientific arguments focusing on discovering new laws of nature",
+                    "B. Arguments based on analogy",
+                    "C. Arguments based on causal inference",
+                    "D. Arguments based on Geometry",
+                    "E. 'A' & 'D' are answers"
+                ],
+                answer: "D",
+                explanation: "Answer: D. Arguments based on geometry (mathematical proofs) are typically deductive because they proceed from axioms and definitions to necessary conclusions. Scientific arguments (A) are usually inductive. Arguments from analogy (B) and causal inference (C) are also typically inductive."
+            },
+            {
+                id: 26,
+                text: "Since Almaz is the mother of Aster and the sister of Melaku, it follows that Melaku is an uncle of Aster. This argument is:",
+                options: [
+                    "A. Inductive-causal inference",
+                    "B. Inductive-based on analogy",
+                    "C. Deductive-based on definition",
+                    "D. Inductive-based on sign",
+                    "E. None of the above"
+                ],
+                answer: "C",
+                explanation: "Answer: C. This is deductive based on definitions of family relationships. Given the definitions of 'mother', 'sister', and 'uncle', if Almaz is Aster's mother and Melaku's sister, then Melaku must be Aster's uncle. The conclusion follows necessarily from the premises and definitions."
+            },
+            {
+                id: 27,
+                text: "Which one of the following is the correct statement about inductive arguments?",
+                options: [
+                    "A. Strong inductive arguments are necessarily cogent arguments",
+                    "B. Cogent inductive arguments are inevitably strong arguments",
+                    "C. Weak inductive arguments can be either cogent or uncogent",
+                    "D. Uncogent inductive arguments are only weak arguments",
+                    "E. All of the above"
+                ],
+                answer: "B",
+                explanation: "Answer: B. By definition, a cogent inductive argument must be strong AND have all true premises. So cogent arguments are inevitably strong. A is wrong because strong arguments can have false premises (making them uncogent). C is wrong because weak arguments cannot be cogent. D is wrong because uncogent arguments can be strong with false premises."
+            },
+            {
+                id: 28,
+                text: "Either classical culture originated in Greece, or it originated in Egypt. Classical culture did not originate in Egypt. Therefore, classical culture originated in Greece. This argument is?",
+                options: [
+                    "A. Hypothetical syllogism",
+                    "B. Disjunctive syllogism",
+                    "C. Categorical syllogism",
+                    "D. Argument based on analogy",
+                    "E. Argument based on authority"
+                ],
+                answer: "B",
+                explanation: "Answer: B. This is a disjunctive syllogism: P or Q; not Q; therefore P. The first premise presents a disjunction (either-or), the second denies one disjunct, and the conclusion affirms the other disjunct."
+            },
+            {
+                id: 29,
+                text: "'The government of Ethiopia has been adopting the system of decentralization. This implies that, the Ethiopian government recognizes greater level of local autonomy.' This argument is?",
+                options: [
+                    "A. Argument based on definition",
+                    "B. Argument based mathematics",
+                    "C. Arguments based on syllogism",
+                    "D. Argument based on prediction",
+                    "E. Argument based on sign"
+                ],
+                answer: "E",
+                explanation: "Answer: E. This is an argument from sign. Decentralization is presented as a sign or indicator that the government recognizes local autonomy. The premise (adopting decentralization) is seen as evidence pointing to the conclusion (recognizing local autonomy)."
+            },
+            {
+                id: 30,
+                text: "Which of the following is not a method used to identify deductive arguments?",
+                options: [
+                    "A. Special indicator words",
+                    "B. Inferential link between the premise and a conclusion",
+                    "C. Form of argumentation the arguer uses",
+                    "D. All of the above",
+                    "E. None of the above"
+                ],
+                answer: "E",
+                explanation: "Answer: E. All of these ARE methods used to identify deductive arguments. Special indicator words (e.g., 'necessarily', 'certainly'), analyzing the inferential claim (necessity vs. probability), and examining the argument form are all valid approaches to identifying deductive arguments."
+            },
+            {
+                id: 31,
+                text: "The connection between premises and conclusion in inductive arguments are?",
+                options: [
+                    "A. A matter of necessity",
+                    "B. A matter of possibility",
+                    "C. A matter of probability",
+                    "D. A matter of certainty",
+                    "E. All of the above"
+                ],
+                answer: "C",
+                explanation: "Answer: C. Inductive arguments claim that the conclusion follows from the premises with probability, not certainty. The connection is probabilistic rather than necessary (which characterizes deductive arguments)."
+            },
+            {
+                id: 32,
+                text: "'A shoeshine boy is an industrious person. Therefore, he is a hard worker'. The name of this argument is?",
+                options: [
+                    "A. Argument from definition",
+                    "B. Argument based on mathematics",
+                    "C. Argument from analogy",
+                    "D. Inductive generalization",
+                    "E. None"
+                ],
+                answer: "A",
+                explanation: "Answer: A. This is an argument from definition. The conclusion ('he is a hard worker') follows from the definition of 'industrious person' (someone who works hard). Given the premise that the shoeshine boy is industrious, the conclusion necessarily follows from the definition."
+            },
+            {
+                id: 33,
+                text: "For inductive argument to be Cogent;",
+                options: [
+                    "A. It is necessary that the conclusion be true and premises be false",
+                    "B. It is necessary that all premises to be true.",
+                    "C. It is not necessary that either the premise or the conclusion to be true.",
+                    "D. Cogent inductive argument that is either strong argument with one or more false premises or weak."
+                ],
+                answer: "B",
+                explanation: "Answer: B. For an inductive argument to be cogent, it must be strong AND have all true premises. So it IS necessary that all premises are true. Option A is obviously wrong. Option C is wrong because cogency requires true premises. Option D describes uncogent arguments, not cogent ones."
+            },
+            {
+                id: 34,
+                text: "Among the following, which one is the advantage of studying logic?",
+                options: [
+                    "A. Helps us to construct misleading arguments",
+                    "B. Is intended to intensify the common errors of logic.",
+                    "C. Enhances the capacity of human beings' creativity.",
+                    "D. Is aimed to deform the reasoning process at large.",
+                    "E. None of the above"
+                ],
+                answer: "C",
+                explanation: "Answer: C. Studying logic enhances critical thinking and reasoning skills, which can indeed enhance creativity by helping people think more clearly and make better connections. Options A, B, and D describe the opposite of what logic study aims to achieve."
+            },
+            {
+                id: 35,
+                text: "'All birds are politicians. All dogs are politicians. Hence, all birds are dogs'. This argument is?",
+                options: [
+                    "A. Inductive, strong & cogent",
+                    "B. Inductive, weak & uncogent",
+                    "C. Deductive, invalid & Unsound",
+                    "D. Deductive, valid & Sound"
+                ],
+                answer: "C",
+                explanation: "Answer: C. This is a deductive argument (categorical syllogism) that is invalid (the conclusion doesn't follow from the premises) and therefore unsound (all invalid arguments are unsound). The premises could be true (though they're actually false) and conclusion false, which shows invalidity."
+            },
+            {
+                id: 36,
+                text: "All the following are logically incorrect usage of terms in evaluating deductive arguments, except?",
+                options: [
+                    "A. Applying the word valid or invalid",
+                    "B. Saying true or false",
+                    "C. Saying Cogent or uncogent",
+                    "D. Using words such as plausible or implausible"
+                ],
+                answer: "A",
+                explanation: "Answer: A. 'Valid' and 'invalid' are the CORRECT terms to use when evaluating deductive arguments. Options B, C, and D describe incorrect usage: 'true/false' applies to statements, not arguments; 'cogent/uncogent' applies to inductive arguments; 'plausible/implausible' is not standard terminology for evaluating deductive arguments."
+            }
+        ];
+        
+        // Short Answer Questions (all 7)
+        const shortQuestions = [
+            {
+                id: 1,
+                text: "Identify Premise and Conclusion for Argument 1: 'Titanium combines readily with oxygen, nitrogen, and hydrogen, all of which have an adverse effect on its mechanical properties. As a result, titanium must be processed in their absence.'",
+                explanation: "<strong>Premise:</strong> Titanium combines readily with oxygen, nitrogen, and hydrogen, all of which have an adverse effect on its mechanical properties.<br><strong>Conclusion:</strong> Titanium must be processed in their absence.<br><strong>Indicator word:</strong> 'As a result' indicates the conclusion.<br><strong>Argument type:</strong> Deductive (the conclusion necessarily follows if we accept the premises)."
+            },
+            {
+                id: 2,
+                text: "Identify Premise and Conclusion for Argument 2: 'Many studies show that drinking water improves focus. Since Sarah has been drinking more water recently, she must be more focused now.'",
+                explanation: "<strong>Premise 1:</strong> Many studies show that drinking water improves focus.<br><strong>Premise 2:</strong> Sarah has been drinking more water recently.<br><strong>Conclusion:</strong> She must be more focused now.<br><strong>Indicator word:</strong> 'Since' introduces the second premise.<br><strong>Argument type:</strong> Inductive (specifically, a causal inference from general studies to a particular case)."
+            },
+            {
+                id: 3,
+                text: "Identify Premise and Conclusion for Argument 3: 'Chalitu receives her payment at the end of the month. All Arba Minch University non-café students receive their payment at the end of the month. Chalitu is Arba Minch University non-café student.'",
+                explanation: "<strong>Premise 1:</strong> All Arba Minch University non-café students receive their payment at the end of the month.<br><strong>Premise 2:</strong> Chalitu is Arba Minch University non-café student.<br><strong>Conclusion:</strong> Chalitu receives her payment at the end of the month.<br><strong>Note:</strong> This is a deductive argument (specifically, a categorical syllogism). The first statement in the question is actually the conclusion, though it appears first in the presentation."
+            },
+            {
+                id: 4,
+                text: "Determine Argument vs. Non-Argument for Passage 1: 'Canada is similar in many ways to the United States... Therefore, the Canadian flag must look a lot like the U.S. flag.'",
+                explanation: "<strong>Type:</strong> Argument<br><strong>Reason:</strong> This passage presents a conclusion ('the Canadian flag must look a lot like the U.S. flag') based on a premise ('Canada is similar in many ways to the United States'). The indicator word 'Therefore' signals the presence of an argument.<br><strong>Argument type:</strong> Inductive argument from analogy (though weak, since similarity in many ways doesn't necessarily imply similarity in flag design)."
+            },
+            {
+                id: 5,
+                text: "Determine Argument vs. Non-Argument for Passage 2: 'Diabetes victims are either insulin takers or glucose eliminators. Diabetes victims are not insulin takers. Therefore, diabetes victims are glucose eliminators.'",
+                explanation: "<strong>Type:</strong> Argument<br><strong>Reason:</strong> This is clearly an argument with premises and a conclusion signaled by 'Therefore'.<br><strong>Argument type:</strong> Deductive (specifically, a disjunctive syllogism: P or Q; not P; therefore Q).<br><strong>Validity:</strong> Valid (if the premises are true, the conclusion must be true).<br><strong>Soundness:</strong> Depends on whether the premises are actually true."
+            },
+            {
+                id: 6,
+                text: "Determine Argument vs. Non-Argument for Passage 3: 'If professional football games incite violence in the home, then the widespread approval given to this sport should be reconsidered.'",
+                explanation: "<strong>Type:</strong> Not an argument (conditional statement)<br><strong>Reason:</strong> This is a conditional statement (if-then) but it doesn't assert that either the antecedent or consequent is true. It merely states a relationship. For it to be an argument, it would need additional premises that assert the truth of the antecedent or draw a conclusion from the conditional.<br><strong>Note:</strong> Conditional statements alone are not arguments; they become parts of arguments when combined with other premises."
+            },
+            {
+                id: 7,
+                text: "Full Argument Analysis: Analyze 'All Alcoholic drinks are beverages. Coca Cola is a beverage. Thus, Coca Cola is an alcoholic drink.'",
+                explanation: "<strong>Type:</strong> Deductive (categorical syllogism)<br><strong>Validity:</strong> Invalid (commits the fallacy of the undistributed middle)<br><strong>Explanation of invalidity:</strong> The form is: All A are B; C is B; therefore C is A. This is not valid because being a beverage doesn't guarantee being an alcoholic drink. Many beverages are non-alcoholic.<br><strong>Soundness:</strong> Unsound (because it's invalid, and also the conclusion is false)<br><strong>Truth of premises:</strong> First premise is true, second premise is true, but conclusion is false."
+            }
+        ];
+        
+        // ==================== STATE ====================
+        let tfCorrect = 0;
+        let mcCorrect = 0;
+        let totalAnswered = 0;
+        const answeredTF = new Set();
+        const answeredMC = new Set();
+        
+        // ==================== FUNCTIONS ====================
+        
+        // Initialize the page with all questions
+        function initializePage() {
+            renderTFQuestions();
+            renderMCQuestions();
+            renderShortQuestions();
+            updateStats();
+            
+            // Add interactivity to matching items
+            document.querySelectorAll('.matching-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+            });
+        }
+        
+        // Render all True/False questions
+        function renderTFQuestions() {
+            const container = document.getElementById('tf-questions-container');
+            container.innerHTML = '';
+            
+            tfQuestions.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `tf-card-${q.id}`;
+                
+                card.innerHTML = `
+                    <div class="question-text">${q.id}. ${q.text}</div>
+                    <div class="d-flex gap-3 mb-3">
+                        <button class="tf-btn" onclick="checkTFAnswer(${q.id}, true)">True</button>
+                        <button class="tf-btn" onclick="checkTFAnswer(${q.id}, false)">False</button>
+                    </div>
+                    <div class="explanation" id="tf-explanation-${q.id}">
+                        <div class="explanation-title"><i class="fas fa-lightbulb"></i> Explanation</div>
+                        <p><strong>Answer: ${q.answer ? 'True' : 'False'}</strong>. ${q.explanation}</p>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // Render all Multiple Choice questions
+        function renderMCQuestions() {
+            const container = document.getElementById('mc-questions-container');
+            container.innerHTML = '';
+            
+            mcQuestions.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `mc-card-${q.id}`;
+                
+                let optionsHTML = '';
+                q.options.forEach((opt, index) => {
+                    const letter = String.fromCharCode(65 + index);
+                    optionsHTML += `
+                        <button class="option-btn" onclick="checkMCAnswer(${q.id}, '${letter}')">
+                            ${opt}
+                        </button>
+                    `;
+                });
+                
+                card.innerHTML = `
+                    <div class="question-text">${q.id}. ${q.text}</div>
+                    <div class="mc-options">
+                        ${optionsHTML}
+                    </div>
+                    <div class="explanation" id="mc-explanation-${q.id}">
+                        <div class="explanation-title"><i class="fas fa-lightbulb"></i> Explanation</div>
+                        <p>${q.explanation}</p>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // Render all Short Answer questions
+        function renderShortQuestions() {
+            const container = document.getElementById('short-questions-container');
+            container.innerHTML = '';
+            
+            shortQuestions.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'short-answer-card';
+                
+                card.innerHTML = `
+                    <div class="question-text">${q.id}. ${q.text}</div>
+                    <button class="reveal-btn mt-2" onclick="revealShortAnswer(${q.id})">
+                        <i class="fas fa-eye"></i> Show Analysis
+                    </button>
+                    <div class="short-explanation mt-3" id="short-explanation-${q.id}">
+                        ${q.explanation}
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // Check True/False answer
+        function checkTFAnswer(id, userAnswer) {
+            const question = tfQuestions.find(q => q.id === id);
+            const card = document.getElementById(`tf-card-${id}`);
+            const buttons = card.querySelectorAll('.tf-btn');
+            const explanation = document.getElementById(`tf-explanation-${id}`);
+            
+            // Remove previous selections
+            buttons.forEach(btn => {
+                btn.classList.remove('selected-true', 'selected-false');
+            });
+            
+            // Mark selected button
+            if (userAnswer) {
+                buttons[0].classList.add('selected-true');
+            } else {
+                buttons[1].classList.add('selected-false');
+            }
+            
+            // Check correctness
+            const isCorrect = (userAnswer === question.answer);
+            
+            // Update statistics if not already answered
+            if (!answeredTF.has(id)) {
+                totalAnswered++;
+                if (isCorrect) tfCorrect++;
+                answeredTF.add(id);
+                updateStats();
+            }
+            
+            // Show explanation
+            explanation.classList.add('show');
+        }
+        
+        // Check Multiple Choice answer
+        function checkMCAnswer(id, userAnswer) {
+            const question = mcQuestions.find(q => q.id === id);
+            const card = document.getElementById(`mc-card-${id}`);
+            const buttons = card.querySelectorAll('.option-btn');
+            const explanation = document.getElementById(`mc-explanation-${id}`);
+            
+            // Remove previous selections
+            buttons.forEach(btn => {
+                btn.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Find and mark selected button
+            const selectedIndex = userAnswer.charCodeAt(0) - 65;
+            buttons[selectedIndex].classList.add('selected');
+            
+            // Check correctness
+            const isCorrect = (userAnswer === question.answer);
+            
+            // Mark correct/incorrect
+            if (isCorrect) {
+                buttons[selectedIndex].classList.add('correct');
+            } else {
+                buttons[selectedIndex].classList.add('incorrect');
+                
+                // Highlight correct answer
+                const correctIndex = question.answer.charCodeAt(0) - 65;
+                buttons[correctIndex].classList.add('correct');
+            }
+            
+            // Update statistics if not already answered
+            if (!answeredMC.has(id)) {
+                totalAnswered++;
+                if (isCorrect) mcCorrect++;
+                answeredMC.add(id);
+                updateStats();
+            }
+            
+            // Show explanation
+            explanation.classList.add('show');
+        }
+        
+        // Reveal matching answers
+        function revealMatchingAnswers() {
+            document.getElementById('matching-answers').style.display = 'block';
+        }
+        
+        // Reveal short answer
+        function revealShortAnswer(id) {
+            const explanation = document.getElementById(`short-explanation-${id}`);
+            if (explanation.style.display === 'block') {
+                explanation.style.display = 'none';
+            } else {
+                explanation.style.display = 'block';
+            }
+        }
+        
+        // Update statistics display
+        function updateStats() {
+            document.getElementById('tf-correct').textContent = tfCorrect;
+            document.getElementById('mc-correct').textContent = mcCorrect;
+            document.getElementById('total-answered').textContent = totalAnswered;
+            
+            const totalCorrect = tfCorrect + mcCorrect;
+            const percentage = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
+            document.getElementById('percentage').textContent = `${percentage}%`;
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>
